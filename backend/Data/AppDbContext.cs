@@ -11,4 +11,6 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Pessoa> Pessoas { get; set; }
+
+    public DbSet<Gasto> Gastos { get; set; }
 }
