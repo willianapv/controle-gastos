@@ -4,10 +4,14 @@ import "./App.css";
 import Dashboard from "./components/Dashboard";
 import FormularioGasto from "./components/FormularioGasto";
 import CardGasto from "./components/CardGasto";
+import Pessoas from "./components/Pessoas";
 
 function App() {
   const [gastos, setGastos] = useState([]);
   const [pessoas, setPessoas] = useState([]);
+
+  const [nome, setNome] = useState("");
+  const [idade, setIdade] = useState("");
 
   const [descricao, setDescricao] = useState("");
   const [valor, setValor] = useState("");
@@ -16,9 +20,15 @@ function App() {
   const [pessoaId, setPessoaId] = useState("");
 
   useEffect(() => {
-    buscarGastos();
     buscarPessoas();
+    buscarGastos();
   }, []);
+
+  function buscarPessoas() {
+    fetch("http://localhost:5086/api/Pessoa")
+      .then((response) => response.json())
+      .then((data) => setPessoas(data));
+  }
 
   function buscarGastos() {
     fetch("http://localhost:5086/api/Gasto")
@@ -26,10 +36,36 @@ function App() {
       .then((data) => setGastos(data));
   }
 
-  function buscarPessoas() {
-    fetch("http://localhost:5086/api/Pessoa")
+  function cadastrarPessoa() {
+    fetch("http://localhost:5086/api/Pessoa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nome,
+        idade: Number(idade),
+      }),
+    })
       .then((response) => response.json())
-      .then((data) => setPessoas(data));
+      .then(() => {
+        buscarPessoas();
+        setNome("");
+        setIdade("");
+      });
+  }
+
+  function excluirPessoa(id) {
+    if (!window.confirm("Deseja excluir esta pessoa?")) {
+      return;
+    }
+
+    fetch(`http://localhost:5086/api/Pessoa/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      buscarPessoas();
+      buscarGastos();
+    });
   }
 
   function limparFormulario() {
@@ -55,11 +91,21 @@ function App() {
         data: new Date().toISOString(),
       }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((texto) => {
+            alert(texto);
+            throw new Error(texto);
+          });
+        }
+
+        return response.json();
+      })
       .then(() => {
         buscarGastos();
         limparFormulario();
-      });
+      })
+      .catch(() => {});
   }
 
   function excluirGasto(id) {
@@ -85,17 +131,24 @@ function App() {
   return (
     <div className="container">
       <header className="header">
-  <h1>💰 Controle de Gastos</h1>
-
-  <p>
-    Sistema desenvolvido em React + ASP.NET Core
-  </p>
-</header>
+        <h1>💰 Controle de Gastos</h1>
+        <p>Sistema desenvolvido em React + ASP.NET Core</p>
+      </header>
 
       <Dashboard
         totalReceitas={totalReceitas}
         totalDespesas={totalDespesas}
         saldo={saldo}
+      />
+
+      <Pessoas
+        pessoas={pessoas}
+        nome={nome}
+        setNome={setNome}
+        idade={idade}
+        setIdade={setIdade}
+        cadastrarPessoa={cadastrarPessoa}
+        excluirPessoa={excluirPessoa}
       />
 
       <FormularioGasto
