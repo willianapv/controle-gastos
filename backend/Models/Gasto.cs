@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace backend.Models;
 
 public class Gasto
@@ -13,4 +15,10 @@ public class Gasto
     public DateTime Data { get; set; }
 
     public string Tipo { get; set; } = string.Empty;
+
+    // Chave estrangeira
+    public int PessoaId { get; set; }
+
+    // Navegação
+    public Pessoa? Pessoa { get; set; }
 }
