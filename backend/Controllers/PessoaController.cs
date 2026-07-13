@@ -52,4 +52,26 @@ public class PessoaController : ControllerBase
 
         return NoContent();
     }
+    [HttpPut("{id}")]
+public async Task<IActionResult> AtualizarPessoa(int id, Pessoa pessoaAtualizada)
+{
+    if (id != pessoaAtualizada.Id)
+    {
+        return BadRequest();
+    }
+
+    var pessoa = await _context.Pessoas.FindAsync(id);
+
+    if (pessoa == null)
+    {
+        return NotFound();
+    }
+
+    pessoa.Nome = pessoaAtualizada.Nome;
+    pessoa.Idade = pessoaAtualizada.Idade;
+
+    await _context.SaveChangesAsync();
+
+    return NoContent();
+}
 }
