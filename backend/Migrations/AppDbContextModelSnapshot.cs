@@ -34,6 +34,9 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("PessoaId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Tipo")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -42,6 +45,8 @@ namespace backend.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PessoaId");
 
                     b.ToTable("Gastos");
                 });
@@ -62,6 +67,17 @@ namespace backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pessoas");
+                });
+
+            modelBuilder.Entity("backend.Models.Gasto", b =>
+                {
+                    b.HasOne("backend.Models.Pessoa", "Pessoa")
+                        .WithMany()
+                        .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pessoa");
                 });
 #pragma warning restore 612, 618
         }
