@@ -35,4 +35,45 @@ public class GastoController : ControllerBase
             gasto
         );
     }
+    [HttpPut("{id}")]
+public async Task<IActionResult> AtualizarGasto(int id, Gasto gastoAtualizado)
+{
+    if (id != gastoAtualizado.Id)
+    {
+        return BadRequest();
+    }
+
+    var gasto = await _context.Gastos.FindAsync(id);
+
+    if (gasto == null)
+    {
+        return NotFound();
+    }
+
+    gasto.Descricao = gastoAtualizado.Descricao;
+    gasto.Valor = gastoAtualizado.Valor;
+    gasto.Categoria = gastoAtualizado.Categoria;
+    gasto.Data = gastoAtualizado.Data;
+    gasto.Tipo = gastoAtualizado.Tipo;
+
+    await _context.SaveChangesAsync();
+
+    return NoContent();
+}
+[HttpDelete("{id}")]
+public async Task<IActionResult> ExcluirGasto(int id)
+{
+    var gasto = await _context.Gastos.FindAsync(id);
+
+    if (gasto == null)
+    {
+        return NotFound();
+    }
+
+    _context.Gastos.Remove(gasto);
+
+    await _context.SaveChangesAsync();
+
+    return NoContent();
+}
 }
