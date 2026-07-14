@@ -6,11 +6,6 @@ O projeto permite o gerenciamento de receitas e despesas, com dashboard financei
 
 ---
 
-## 📷 Preview
-
-> Em breve será adicionada uma imagem do sistema em funcionamento.
-
----
 
 # 🚀 Tecnologias utilizadas
 
@@ -152,7 +147,7 @@ Este projeto foi desenvolvido para consolidar conhecimentos em desenvolvimento F
 Estudante de Análise e Desenvolvimento de Sistemas.
 
 LinkedIn:
-(Adicionar após publicação)
+www.linkedin.com/in/willian-almeida-de-castro-34913b18
 
 GitHub:
 https://github.com/willianapv
