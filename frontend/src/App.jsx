@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import FormularioGasto from "./components/FormularioGasto";
 import CardGasto from "./components/CardGasto";
 import Pessoas from "./components/Pessoas";
+import ResumoPessoas from "./components/ResumoPessoas";
 
 function App() {
   const [gastos, setGastos] = useState([]);
@@ -165,7 +166,10 @@ function App() {
         pessoas={pessoas}
         cadastrarGasto={cadastrarGasto}
       />
-
+<ResumoPessoas
+  pessoas={pessoas}
+  gastos={gastos}
+/>
       <h2>📋 Gastos Cadastrados</h2>
 
       <div className="lista">
