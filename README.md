@@ -1,28 +1,54 @@
 # 💰 Controle de Gastos
 
-Sistema Full Stack desenvolvido como projeto prático durante minha formação em Análise e Desenvolvimento de Sistemas.
+Sistema Full Stack desenvolvido utilizando **React**, **ASP.NET Core 8** e **SQLite**, com o objetivo de gerenciar receitas e despesas de diferentes pessoas.
 
-O projeto permite o gerenciamento de receitas e despesas, com dashboard financeiro, cadastro de pessoas e integração completa entre Front-end e Back-end.
+O projeto foi desenvolvido como parte dos meus estudos em **Análise e Desenvolvimento de Sistemas**, aplicando conceitos de APIs REST, Entity Framework Core, banco de dados relacional, integração entre Front-end e Back-end e boas práticas de desenvolvimento.
 
 ---
 
+## 📷 Demonstração
+
+### Dashboard
+
+![Dashboard](./assets/dashboard.png)
+
+Painel inicial com resumo financeiro, cadastro e gerenciamento de pessoas.
+
+---
+
+### Pessoas
+
+![Pessoas](./assets/pessoas.png)
+
+Visualização do resumo financeiro individual de cada pessoa cadastrada.
+
+---
+
+### Gastos
+
+![Gastos](./assets/gastos.png)
+
+Cadastro e gerenciamento de receitas e despesas vinculadas às pessoas.
+
+--- 
 
 # 🚀 Tecnologias utilizadas
 
-### Front-end
+## Front-end
 
 - React
 - Vite
 - JavaScript
 - CSS3
+- Axios
 
-### Back-end
+## Back-end
 
 - ASP.NET Core 8
 - Entity Framework Core
 - SQLite
 
-### Ferramentas
+## Ferramentas
 
 - Git
 - GitHub
@@ -33,22 +59,50 @@ O projeto permite o gerenciamento de receitas e despesas, com dashboard financei
 
 # ✨ Funcionalidades
 
+## Pessoas
+
 - ✅ Cadastro de Pessoas
 - ✅ Listagem de Pessoas
 - ✅ Atualização de Pessoas
 - ✅ Exclusão de Pessoas
 
+## Gastos
+
 - ✅ Cadastro de Gastos
 - ✅ Listagem de Gastos
+- ✅ Atualização de Gastos
 - ✅ Exclusão de Gastos
 
-- ✅ Dashboard Financeiro
-- ✅ Controle de Receitas
-- ✅ Controle de Despesas
-- ✅ Cálculo automático do saldo
+## Dashboard
 
-- ✅ Relacionamento entre Pessoa e Gasto
-- ✅ Regra de negócio para menores de idade
+- ✅ Total de Receitas
+- ✅ Total de Despesas
+- ✅ Saldo Geral
+- ✅ Totais por Pessoa
+
+## Regras de negócio
+
+- ✅ Menores de idade não podem cadastrar receitas.
+- ✅ Uma pessoa deve existir antes de cadastrar um gasto.
+- ✅ Exclusão em cascata entre Pessoa e Gastos.
+
+---
+
+# 📋 Requisitos atendidos
+
+✔ CRUD completo de Pessoas
+
+✔ CRUD completo de Gastos
+
+✔ Relacionamento entre Pessoa e Gasto
+
+✔ Persistência em SQLite
+
+✔ Dashboard Financeiro
+
+✔ Regra de negócio para menores de idade
+
+✔ API REST
 
 ---
 
@@ -56,21 +110,24 @@ O projeto permite o gerenciamento de receitas e despesas, com dashboard financei
 
 ```
 Controle-Gastos
-
+│
 ├── backend
 │   ├── Controllers
-│   ├── Models
 │   ├── Data
 │   ├── Migrations
-│   └── Program.cs
+│   ├── Models
+│   ├── Program.cs
+│   └── backend.csproj
 │
 ├── frontend
 │   ├── src
 │   │   ├── components
 │   │   ├── services
 │   │   ├── App.jsx
-│   │   └── App.css
+│   │   ├── App.css
+│   │   └── main.jsx
 │   │
+│   ├── public
 │   └── package.json
 │
 └── README.md
@@ -78,9 +135,17 @@ Controle-Gastos
 
 ---
 
-# ⚙️ Como executar
+# ⚙️ Como executar o projeto
 
-## Back-end
+## 1️⃣ Clonar o repositório
+
+```bash
+git clone https://github.com/willianapv/controle-gastos.git
+```
+
+---
+
+## 2️⃣ Executar o Back-end
 
 ```bash
 cd backend
@@ -92,9 +157,21 @@ dotnet ef database update
 dotnet run
 ```
 
+A API ficará disponível em:
+
+```
+http://localhost:5086
+```
+
+Swagger:
+
+```
+http://localhost:5086/swagger
+```
+
 ---
 
-## Front-end
+## 3️⃣ Executar o Front-end
 
 ```bash
 cd frontend
@@ -104,50 +181,40 @@ npm install
 npm run dev
 ```
 
----
-
-# 📌 API
-
-### Pessoas
+O Front-end ficará disponível em:
 
 ```
-GET     /api/Pessoa
-
-POST    /api/Pessoa
-
-PUT     /api/Pessoa/{id}
-
-DELETE  /api/Pessoa/{id}
-```
-
-### Gastos
-
-```
-GET     /api/Gasto
-
-POST    /api/Gasto
-
-PUT     /api/Gasto/{id}
-
-DELETE  /api/Gasto/{id}
+http://localhost:5173
 ```
 
 ---
 
-# 🎯 Objetivo
+# 📚 Aprendizados
 
-Este projeto foi desenvolvido para consolidar conhecimentos em desenvolvimento Full Stack utilizando React e ASP.NET Core, aplicando conceitos de APIs REST, banco de dados relacional, Entity Framework Core, componentização em React e integração entre Front-end e Back-end.
+Durante o desenvolvimento deste projeto foram aplicados conceitos como:
+
+- Desenvolvimento de APIs REST
+- Entity Framework Core
+- Migrations
+- SQLite
+- Componentização em React
+- Consumo de APIs utilizando Axios
+- Integração entre Front-end e Back-end
+- Git e GitHub
+- Organização de projetos Full Stack
 
 ---
 
 # 👨‍💻 Autor
 
-**Willian Almeida**
+## Willian Almeida
 
 Estudante de Análise e Desenvolvimento de Sistemas.
 
-LinkedIn:
-www.linkedin.com/in/willian-almeida-de-castro-34913b18
+### GitHub
 
-GitHub:
 https://github.com/willianapv
+
+### LinkedIn
+
+https://www.linkedin.com/in/willian-almeida-de-castro-34913b18
