@@ -46,32 +46,35 @@ public class PessoaController : ControllerBase
             return NotFound();
         }
 
+        // Ao excluir uma pessoa, todas as suas transações também são removidas.
+        // Esse comportamento é garantido pelo relacionamento configurado no Entity Framework.
         _context.Pessoas.Remove(pessoa);
 
         await _context.SaveChangesAsync();
 
         return NoContent();
     }
+
     [HttpPut("{id}")]
-public async Task<IActionResult> AtualizarPessoa(int id, Pessoa pessoaAtualizada)
-{
-    if (id != pessoaAtualizada.Id)
+    public async Task<IActionResult> AtualizarPessoa(int id, Pessoa pessoaAtualizada)
     {
-        return BadRequest();
+        if (id != pessoaAtualizada.Id)
+        {
+            return BadRequest();
+        }
+
+        var pessoa = await _context.Pessoas.FindAsync(id);
+
+        if (pessoa == null)
+        {
+            return NotFound();
+        }
+
+        pessoa.Nome = pessoaAtualizada.Nome;
+        pessoa.Idade = pessoaAtualizada.Idade;
+
+        await _context.SaveChangesAsync();
+
+        return NoContent();
     }
-
-    var pessoa = await _context.Pessoas.FindAsync(id);
-
-    if (pessoa == null)
-    {
-        return NotFound();
-    }
-
-    pessoa.Nome = pessoaAtualizada.Nome;
-    pessoa.Idade = pessoaAtualizada.Idade;
-
-    await _context.SaveChangesAsync();
-
-    return NoContent();
-}
 }

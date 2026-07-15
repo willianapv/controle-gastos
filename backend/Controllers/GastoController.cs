@@ -25,6 +25,7 @@ public class GastoController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Gasto>> CriarGasto(Gasto gasto)
     {
+        // Verifica se a pessoa informada existe no cadastro
         var pessoa = await _context.Pessoas.FindAsync(gasto.PessoaId);
 
         if (pessoa == null)
@@ -32,6 +33,8 @@ public class GastoController : ControllerBase
             return NotFound("Pessoa não encontrada.");
         }
 
+        // Regra de negócio:
+        // Pessoas menores de 18 anos podem cadastrar apenas despesas.
         if (pessoa.Idade < 18 && gasto.Tipo == "Receita")
         {
             return BadRequest("Menores de idade só podem cadastrar despesas.");
