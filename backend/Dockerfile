@@ -12,8 +12,6 @@ WORKDIR /app
 
 COPY --from=build /app/publish .
 
-COPY controlegastos.db .
-
 ENV ASPNETCORE_URLS=http://+:10000
 
 EXPOSE 10000
